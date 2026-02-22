@@ -111,6 +111,29 @@ module MiniTest
       end
       assert_equal(0, diffs.size)
     end
+
+    def test_thai_buddhist_holidays
+      note = When.CalendarNote('ThaiBuddhistNote')
+      thai = When.Resource('_c:Thai')
+
+      date = When.TemporalPosition(1373, 3, 15, :frame=>'Thai')
+      assert_equal('Makha Bucha', note.holiday(date).to_s)
+
+      date = When.TemporalPosition(1373, 6, 15, :frame=>'Thai')
+      assert_equal('Visakha Bucha', note.holiday(date).to_s)
+
+      date = When.TemporalPosition(1373, 8, 15, :frame=>'Thai')
+      assert_equal('Asanha Bucha', note.holiday(date).to_s)
+
+      date = When.TemporalPosition(1373, 6, 10, :frame=>'Thai')
+      assert_nil(note.holiday(date))
+
+      date = When.TemporalPosition(1373, 5, 15, :frame=>'Thai')
+      assert_nil(note.holiday(date))
+
+      date = When.when?('1373-06<15', {:frame=>thai})
+      assert_nil(note.holiday(date))
+    end
   end
 end
 
