@@ -294,7 +294,7 @@ module When
     # @return [String]
     #
     def nomen(date)
-      y, m, d = date.cal_date
+      _, m, d = date.cal_date
       month_name = _abbr_of_month(date)
       kal, to_nonae, nonae, to_idus, idus = LongMonths.include?(m) ? LongType : ShortType
       case d

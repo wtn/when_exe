@@ -233,7 +233,7 @@ module When
     # @return [When::TM::PeriodDuration]
     #
     def duration(event=@event)
-      void, event, parameter = event.split(/\A([^\d]+)/)
+      _, event, parameter = event.split(/\A([^\d]+)/)
       send((event+'_delta').downcase.to_sym, parameter)
     end
 
@@ -592,7 +592,7 @@ module When
     # @return [Object] 暦注の値
     #
     def _note_element(note, index, conditions, dates)
-      void, event, *parameter = note.split(/\A([^\d]+)/)
+      _, event, *parameter = note.split(/\A([^\d]+)/)
       method = event.downcase
       parameter << conditions unless conditions.empty?
       return send(method, dates, *parameter) if respond_to?(method)
@@ -613,7 +613,7 @@ module When
     # @private
     def event_delta(parameter=nil)
       return @delta unless parameter
-      num, den = parameter.kind_of?(String) ? parameter.split(/\//, 2) : parameter
+      _num, den = parameter.kind_of?(String) ? parameter.split(/\//, 2) : parameter
       When::TM::IntervalLength.new([(den || @den).to_f,1].max*0.9, 'day')
     end
 
@@ -665,7 +665,7 @@ module When
         @parent = parent
         event   = options.delete(:event)
         case event
-        when String ; void, @event, @parameter = event.split(/\A([^\d]+)/)
+        when String ; _, @event, @parameter = event.split(/\A([^\d]+)/)
         else        ;       @event, @parameter = [parent.event, event]
         end
         @delta = @parent.send((@event+'_delta').to_sym, @parameter)

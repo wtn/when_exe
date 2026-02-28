@@ -36,7 +36,7 @@ class String
       when /\.|E/i
         to_f.to_r
       when /\//
-        Rational
+        _ = Rational
         Rational(*split(/\//).map {|v| v.to_i})
       else
         to_i
@@ -66,7 +66,7 @@ class Float
   end
 
   unless method_defined?(:to_r)
-    Rational
+    _ = Rational
     # @private
     def to_r
       it  = When::Coordinates::Residue.new(self, 1).enum_for

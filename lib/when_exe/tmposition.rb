@@ -740,7 +740,7 @@ module When::TM
     def to_i
       sd  = universal_time
       sd -= @frame.universal_time if @frame.kind_of?(Clock)
-      div, mod = sd.divmod(Duration::DAY)
+      div, _mod = sd.divmod(Duration::DAY)
       div + JulianDate::JD19700101
     end
 
@@ -789,7 +789,7 @@ module When::TM
     def to_datetime(start=_default_start, option={:frame=>When::UTC})
       return JulianDate.dynamical_time(dynamical_time, option).to_datetime unless time_standard.rate_of_clock == 1.0
       raise TypeError, "Clock not assigned" unless clock
-      Rational
+      _ = Rational
       offset   = Rational(-(clock.universal_time/Duration::SECOND).to_i, (Duration::DAY/Duration::SECOND).to_i)
       clk_time = clock.to_clk_time(universal_time - (to_i - JulianDate::JD19700101)*Duration::DAY).clk_time
       ::DateTime.jd(to_i, clk_time[1], clk_time[2], clk_time[3].to_i, offset, start)
@@ -962,10 +962,11 @@ module When::TM
       other = other.first if other.kind_of?(Range)
       return universal_time <=> other unless other.respond_to?(:indeterminated_position)
 
+      prec = nil
       [self.indeterminated_position, other.indeterminated_position].each do |position|
         prec = SYSTEM if [TimeValue::Min, TimeValue::Max].include?(position)
       end
-      prec   = [self.precision, other.precision].min unless prec
+      prec = [self.precision, other.precision].min unless prec
 
       case prec
       when DAY    ; return self.to_i <=> other.to_i

@@ -929,7 +929,8 @@ module When::Coordinates
           t,i,s,c = m17n
           case t
           when '%0s'
-            m17n[index..index] = nil
+            form += '%.0s'
+            index += 1
           when nil
             form  += c
           else

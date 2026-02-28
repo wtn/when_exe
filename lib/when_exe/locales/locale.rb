@@ -369,7 +369,7 @@ module When
         end
         contents = nil
         begin
-          OpenURI
+          _ = OpenURI
           source   = URI.send(:open, path, 'r'+mode, {:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE})
           contents = source.read
         ensure
@@ -479,7 +479,7 @@ module When
     def translate(loc='')
       return to_s unless loc
       loc = loc.sub('_', '-')
-      lang, code = loc.split(/\./)
+      _lang, code = loc.split(/\./)
       result = _label_value(loc)
       return result if !code || @names.member?(loc)
       return result.encode(code)

@@ -974,7 +974,7 @@ module When::TM
       # 代用形式
       else
         pdate += 'T' + ptime if ptime
-        f, d, t, z, e = When::BasicTypes::DateTime._to_array(pdate, {:abbr=>[0]*20})
+        f, d, t, _z, e = When::BasicTypes::DateTime._to_array(pdate, {:abbr=>[0]*20})
         return nil if e
         if d
           case f

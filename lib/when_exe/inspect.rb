@@ -437,7 +437,7 @@ module When
       # @return [Array<Array>] 含まれる月の各日をブロックに渡した結果の 七曜表(block 指定あり, wkst あり)
       #
       def month_included(*args, &block)
-        first, length, wkst, opt = _range(args)
+        first, length, wkst, _opt = _range(args)
         if wkst
           (first...(first+length)).map {|i|
             begun = self.floor(MONTH,DAY) + When::TM::PeriodDuration.new([0,i,0])
@@ -511,7 +511,7 @@ module When
       # @return [Array<Array>] 含まれる年の各日をブロックに渡した結果の 七曜表(block 指定あり, wkst あり)
       #
       def year_included(*args, &block)
-        first, length, wkst, opt = _range(args)
+        first, length, wkst, _opt = _range(args)
         if wkst
           (first...(first+length)).map {|i|
             begun   = _force_euqal_year(i)
@@ -1059,7 +1059,7 @@ module When
       #      [ true       然り ]
       #
       def calendar_name
-        void, epoch, reverse, back = @calendar_era_props
+        _, epoch, reverse, back = @calendar_era_props
         name = [@calendar_era || @frame, epoch, reverse, back]
         name.pop until name[-1]
         return name

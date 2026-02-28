@@ -323,7 +323,7 @@ module When
         #
         def delta_m(t)
 
-          dt, a0, t0, b0, b1 = _tv_m(t)
+          dt, a0, t0, b0, _b1 = _tv_m(t)
 
           # 補正値 (A式)
           a0 + (b0.to_f * dt / t0 + 0.5).floor

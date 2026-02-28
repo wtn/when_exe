@@ -609,7 +609,7 @@ module When::TM
     # 暦法上の通日
     #
     def _to_i
-      void, epoch = @calendar_era_props
+      _, epoch = @calendar_era_props
       if epoch
         date     = @cal_date.dup
         date[0] += epoch

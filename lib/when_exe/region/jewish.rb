@@ -64,7 +64,7 @@ module When
         @label = 'Jewish'
 
         # Default Parameters
-        Rational
+        _ = Rational
         @epoch_in_CE   ||= -3760
         @origin_of_MSC ||=  3761
         @origin_of_LSC ||= 1721300 + Rational(  9415,  98496)

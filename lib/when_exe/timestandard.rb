@@ -83,7 +83,7 @@ module When::TimeStandard
       leap_seconds ||= TAI_UTC
       @leap_seconds  =
         if leap_seconds.kind_of?(String)
-          OpenURI
+          _ = OpenURI
           URI.send(:open, leap_seconds) do |file|
             file.read.split(/[\n\r]+/).map { |line|
               line.split(/[^\d.]+/)[3..6].map {|d| d.to_f}

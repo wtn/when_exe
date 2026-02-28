@@ -98,7 +98,7 @@ module When
           case date_time
           # extended date & time format (ISO 8601)
           when /\A(([-+*&%@!>=<?\dW.\(\)]|\{.+?\})+)(?:(T([:*=.,\d]+)?)([A-Z]+(\?.+)?|[-+][:\d]+)?)?\z/
-            d, v, t, time, clock = $~[1..5]
+            d, _v, t, time, clock = $~[1..5]
             d, r = _split_residue(d, options[:abbr]) if d =~ /\{/
             if d =~ /[\(\)]/
               d = When::CalendarTypes::Yerm.parse(d, options[:abbr])
@@ -108,7 +108,7 @@ module When
 
           # extended date & time format (JIS X0301)
           when  /\A((.+::)?(\[[^\]]+\]|[^-+\d{]+))(([-+*&%@!>=<?\dW.\(\)]|\{.+?\})+)?(?:(T([:*=.,\d]+)?)([A-Z]+(\?.+)?|[-+][:\d]+)?)?\z/
-            era, parent, child, d, v, t, time, clock = $~[1..8]
+            era, _parent, _child, d, _v, t, time, clock = $~[1..8]
             d, r = _split_residue(d, options[:abbr]) if d =~ /\{/
             format, date, era = Date._to_array_extended_X0301(d, era, options)
             era ||= options[:era_name] if d =~ /\./

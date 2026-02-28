@@ -1207,7 +1207,7 @@ module When::V
         interval_time = (dtstart + @interval) - dtstart
         return dtstart if interval_time == 0
         duration = target.kind_of?(Numeric) ? target - dtstart.universal_time : (target - dtstart).duration
-        div, mod = duration.divmod(interval_time.duration)
+        div, _mod = duration.divmod(interval_time.duration)
         seed = dtstart + (@interval * div)
         case @direction
         when :reverse ; seed += @interval while (seed <= target)

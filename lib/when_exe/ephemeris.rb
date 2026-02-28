@@ -1947,7 +1947,7 @@ module When::Ephemeris
 
     # オブジェクトの正規化
     def _normalize(args=[], options={})
-      Rational
+      _ = Rational
       @time_standard   ||= 'universal'
       @epoch_shift     ||= 1721139        # 西暦 0 年  春分
       @day_shift       ||= Rational(-1,2) # 夜半 -1/2, 日出 -1/4

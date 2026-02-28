@@ -552,7 +552,7 @@ module When::Parts
         begin
           object = When::Locale.send(:wikipedia_object, path, {:query=>query})
           return object if object
-          OpenURI
+          _ = OpenURI
           args  = [path, "1".respond_to?(:force_encoding) ? 'r:utf-8' : 'r']
           real_path = block_given? ? yield(path) : path
           raise IOError, path + ': not ready' unless real_path

@@ -419,7 +419,7 @@ module When::CalendarTypes
 
       # mean month length
       if @entry_key
-        Rational
+        _ = Rational
         @mean_month = Rational(@rule_table[@entry_key]['Days'], @rule_table[@entry_key]['Months'])
         @mean_year  = Rational(@rule_table[@entry_key]['Days'], @rule_table[@entry_key]['Years' ])
       end
@@ -733,7 +733,7 @@ module When::CalendarTypes
     def _sdn_setup(c_key, c_date)
       root_rule   = @rule_table[@entry_key]
       count, year = c_date[0].divmod(root_rule['Years'])
-      key, dd, mm = root_rule['Rule'][year]
+      key, dd, _mm = root_rule['Rule'][year]
       rule = (@_m_cash_["_rule"][key] ||= _rule_(key))
       @_m_cash_["_key"][c_key] ||= key
       @_m_cash_["_ids"][c_key] ||= rule['IDs']
@@ -764,7 +764,7 @@ module When::CalendarTypes
     #
     def _key_(date)
       rule = @rule_table[@entry_key]
-      count, year = date[0].divmod(rule['Years'])
+      _count, year = date[0].divmod(rule['Years'])
       return rule['Rule'][year][0]
     end
 
@@ -985,7 +985,7 @@ module When::CalendarTypes
     def _sdn_setup(c_key, c_date)
       root_rule = @rule_table[@entry_key]
       count, value = c_date[0].divmod(root_rule['Years'])
-      sdn, y, key  = _read_period(@entry_key,
+      sdn, _y, key  = _read_period(@entry_key,
                    'Years', value,
                    'Days',  @origin_of_LSC + count * root_rule['Days'])
       @_m_cash_["_key"][c_key] ||= key
@@ -1004,7 +1004,7 @@ module When::CalendarTypes
     def _sdn_(date)
       root_rule = @rule_table[@entry_key]
       count, value = date[0].divmod(root_rule['Years'])
-      sdn, y, key  = _read_period(@entry_key,
+      sdn, _y, _key  = _read_period(@entry_key,
                    'Years', value,
                    'Days',  @origin_of_LSC + count * root_rule['Days'])
       return sdn
@@ -1021,7 +1021,7 @@ module When::CalendarTypes
     def _key_(date)
       root_rule = @rule_table[@entry_key]
       count, value = date[0].divmod(root_rule['Years'])
-      sdn, y, key  = _read_period(@entry_key,
+      _sdn, _y, key  = _read_period(@entry_key,
                    'Years', value,
                    'Days',  @origin_of_LSC + count * root_rule['Days'])
       return key
@@ -1070,7 +1070,7 @@ module When::CalendarTypes
 
       # オブジェクトの正規化
       def _normalize_engine
-        Rational
+        _ = Rational
         @engine_month = @engine_month ? @engine_month.to_i - @indices[-2].base : 0
         @engine_day   = @engine_day   ? @engine_day.to_i   - @indices[-1].base : 0
         @engine       = When.Calendar(@engine || When::Gregorian)
@@ -1097,7 +1097,7 @@ module When::CalendarTypes
 
     # オブジェクトの正規化
     def _normalize_engine
-      Rational
+      _ = Rational
       @cycle_offset = @cycle_offset ? (@cycle_offset == @cycle_offset.to_i ? @cycle_offset.to_i : @cycle_offset.to_r) : 0
       @day_offset   = @day_offset   ? (@day_offset   == @day_offset.to_i   ? @day_offset.to_i   : @day_offset.to_r  ) : 0
     end
@@ -1140,7 +1140,7 @@ module When::CalendarTypes
     def _new_year_sdn(year)
       event_time  = @formula[0].cn_to_time(year.to_f + @cycle_offset)
       event_date  = (event_time + 0.5 + @formula[0].long/360.0).floor
-      sunset_time = @formula[0].sunrise(event_date)
+      sunrise_time = @formula[0].sunrise(event_date)
       event_date -= 1 if sunrise_time > event_time
       event_date + @day_offset
     end

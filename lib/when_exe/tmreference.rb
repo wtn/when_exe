@@ -1530,7 +1530,7 @@ module When::TM
     def _normalize_leaf_era
       # r_date and others
       case @reference_date
-      when String  ; format, r_date, r_era = When::BasicTypes::DateTime._to_array(@reference_date)
+      when String  ; _format, r_date, r_era = When::BasicTypes::DateTime._to_array(@reference_date)
       when Array   ; r_era, *r_date        = @reference_date
       when CalDate ; r_era,  r_date        = @reference_date.calendar_era_props, @reference_date.cal_date
       when nil     ;
